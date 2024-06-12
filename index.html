@@ -144,7 +144,7 @@
         let nodes = [];
         let edges = [];
         const numNodes = 9;
-        const maxEdges = 1;
+        const maxEdges = 3;
 
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
@@ -157,13 +157,18 @@
                 nodes.push(new Node(random(width), random(height)));
             }
 
-            // Initialize edges
+            // Initialize edges with edge count tracking
+            let edgeCount = new Array(numNodes).fill(0);
+
             for (let i = 0; i < numNodes; i++) {
                 let node = nodes[i];
-                for (let j = 0; j < maxEdges; j++) {
-                    let target = nodes[int(random(numNodes))];
-                    if (target !== node) {
+                while (edgeCount[i] < maxEdges) {
+                    let targetIndex = int(random(numNodes));
+                    if (targetIndex !== i && edgeCount[targetIndex] < maxEdges) {
+                        let target = nodes[targetIndex];
                         edges.push(new Edge(node, target));
+                        edgeCount[i]++;
+                        edgeCount[targetIndex]++;
                     }
                 }
             }
@@ -194,7 +199,6 @@
 
             update() {
                 this.pos.add(this.vel);
-                this.edges = 0;
 
                 if (this.pos.x > width || this.pos.x < 0) this.vel.x *= -1;
                 if (this.pos.y > height || this.pos.y < 0) this.vel.y *= -1;
