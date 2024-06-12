@@ -36,8 +36,13 @@
         canvas {
             position: absolute;
             top: 0;
-            left: 0;
             z-index: -1;
+        }
+        #graphCanvas1 {
+            left: 0;
+        }
+        #graphCanvas2 {
+            right: 0;
         }
         .content {
             position: relative;
@@ -88,14 +93,15 @@
         const ctx2 = canvas2.getContext('2d');
         canvas2.width = window.innerWidth / 2;
         canvas2.height = window.innerHeight;
-        canvas2.style.left = window.innerWidth / 2 + 'px';
 
         const content = document.querySelector('.content');
         const contentRect = content.getBoundingClientRect();
         const boundaryTop = contentRect.top - 50;
         const boundaryBottom = contentRect.bottom + 50;
-        const boundaryLeft = contentRect.left - 50;
-        const boundaryRight = contentRect.right + 50;
+        const boundaryLeft1 = contentRect.left - 50;
+        const boundaryRight1 = contentRect.left;
+        const boundaryLeft2 = contentRect.right;
+        const boundaryRight2 = contentRect.right + 50;
 
         const nodes1 = [];
         const edges1 = [];
@@ -147,44 +153,91 @@
             }
         }
 
-        function drawGraph(ctx, nodes, edges) {
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        function drawGraph1() {
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
 
-            // Draw edges
-            ctx.strokeStyle = 'rgba(0, 123, 255, 0.3)';
-            ctx.lineWidth = 1;
-            edges.forEach(edge => {
-                const sourceNode = nodes[edge.source];
-                const targetNode = nodes[edge.target];
-                ctx.beginPath();
-                ctx.moveTo(sourceNode.x, sourceNode.y);
-                ctx.lineTo(targetNode.x, targetNode.y);
-                ctx.stroke();
+            // Draw edges for graph 1
+            ctx1.strokeStyle = 'rgba(0, 123, 255, 0.3)';
+            ctx1.lineWidth = 1;
+            edges1.forEach(edge => {
+                const sourceNode = nodes1[edge.source];
+                const targetNode = nodes1[edge.target];
+                ctx1.beginPath();
+                ctx1.moveTo(sourceNode.x, sourceNode.y);
+                ctx1.lineTo(targetNode.x, targetNode.y);
+                ctx1.stroke();
             });
 
-            // Draw nodes
-            ctx.fillStyle = 'rgba(0, 123, 255, 0.7)';
-            nodes.forEach(node => {
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
-                ctx.fill();
+            // Draw nodes for graph 1
+            ctx1.fillStyle = 'rgba(0, 123, 255, 0.7)';
+            nodes1.forEach(node => {
+                ctx1.beginPath();
+                ctx1.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+                ctx1.fill();
 
-                // Update node position
+                // Update node position for graph 1
                 node.x += node.vx;
                 node.y += node.vy;
 
-                // Bounce off the edges
-                if (node.x < nodeRadius || node.x > ctx.canvas.width - nodeRadius) {
+                // Bounce off the edges for graph 1
+                if (node.x < nodeRadius || node.x > canvas1.width - nodeRadius) {
                     node.vx *= -1;
                 }
-                if (node.y < nodeRadius || node.y > ctx.canvas.height - nodeRadius) {
+                if (node.y < nodeRadius || node.y > canvas1.height - nodeRadius) {
                     node.vy *= -1;
                 }
 
-                // Bounce off the text area
-                if (node.x > boundaryLeft - nodeRadius && node.x < boundaryRight + nodeRadius &&
+                // Bounce off the text area for graph 1
+                if (node.x > boundaryLeft1 - nodeRadius && node.x < boundaryRight1 + nodeRadius &&
                     node.y > boundaryTop - nodeRadius && node.y < boundaryBottom + nodeRadius) {
-                    if (node.x < boundaryLeft + nodeRadius || node.x > boundaryRight - nodeRadius) {
+                    if (node.x < boundaryLeft1 + nodeRadius || node.x > boundaryRight1 - nodeRadius) {
+                        node.vx *= -1;
+                    }
+                    if (node.y < boundaryTop + nodeRadius || node.y > boundaryBottom - nodeRadius) {
+                        node.vy *= -1;
+                    }
+                }
+            });
+        }
+
+        function drawGraph2() {
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+            // Draw edges for graph 2
+            ctx2.strokeStyle = 'rgba(0, 123, 255, 0.3)';
+            ctx2.lineWidth = 1;
+            edges2.forEach(edge => {
+                const sourceNode = nodes2[edge.source];
+                const targetNode = nodes2[edge.target];
+                ctx2.beginPath();
+                ctx2.moveTo(sourceNode.x, sourceNode.y);
+                ctx2.lineTo(targetNode.x, targetNode.y);
+                ctx2.stroke();
+            });
+
+            // Draw nodes for graph 2
+            ctx2.fillStyle = 'rgba(0, 123, 255, 0.7)';
+            nodes2.forEach(node => {
+                ctx2.beginPath();
+                ctx2.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+                ctx2.fill();
+
+                // Update node position for graph 2
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Bounce off the edges for graph 2
+                if (node.x < nodeRadius || node.x > canvas2.width - nodeRadius) {
+                    node.vx *= -1;
+                }
+                if (node.y < nodeRadius || node.y > canvas2.height - nodeRadius) {
+                    node.vy *= -1;
+                }
+
+                // Bounce off the text area for graph 2
+                if (node.x > boundaryLeft2 - nodeRadius && node.x < boundaryRight2 + nodeRadius &&
+                    node.y > boundaryTop - nodeRadius && node.y < boundaryBottom + nodeRadius) {
+                    if (node.x < boundaryLeft2 + nodeRadius || node.x > boundaryRight2 - nodeRadius) {
                         node.vx *= -1;
                     }
                     if (node.y < boundaryTop + nodeRadius || node.y > boundaryBottom - nodeRadius) {
@@ -195,8 +248,8 @@
         }
 
         function animate() {
-            drawGraph(ctx1, nodes1, edges1);
-            drawGraph(ctx2, nodes2, edges2);
+            drawGraph1();
+            drawGraph2();
             requestAnimationFrame(animate);
         }
 
