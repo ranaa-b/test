@@ -145,10 +145,10 @@
                 node.y += node.vy;
 
                 // Bounce off the text area
-                if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius + spaceMargin){
+                if (node.x < boundaryLeft + nodeRadius - spaceMargin || node.x > boundaryRight - nodeRadius + spaceMargin){
                     node.vx *= -1;
                 }
-                if (node.y < boundaryTop + nodeRadius + spaceMargin || node.y > boundaryBottom - nodeRadius + spaceMargin) {
+                if (node.y < boundaryTop + nodeRadius - spaceMargin || node.y > boundaryBottom - nodeRadius + spaceMargin) {
                     node.vy *= -1;
                 }
             });
