@@ -42,11 +42,14 @@
         .content {
             position: relative;
             z-index: 1;
+            margin: 100px auto;
+            max-width: 600px;
         }
     </style>
 </head>
 <body>
-    <canvas id="graphCanvas"></canvas>
+    <canvas id="graphCanvas1"></canvas>
+    <canvas id="graphCanvas2"></canvas>
 
     <div class="content">
         <h1>Visual Graph Arena Dataset</h1>
@@ -76,47 +79,76 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('graphCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const canvas1 = document.getElementById('graphCanvas1');
+        const ctx1 = canvas1.getContext('2d');
+        canvas1.width = window.innerWidth / 2;
+        canvas1.height = window.innerHeight;
+
+        const canvas2 = document.getElementById('graphCanvas2');
+        const ctx2 = canvas2.getContext('2d');
+        canvas2.width = window.innerWidth / 2;
+        canvas2.height = window.innerHeight;
+        canvas2.style.left = window.innerWidth / 2 + 'px';
 
         const content = document.querySelector('.content');
         const contentRect = content.getBoundingClientRect();
-        const boundaryTop = contentRect.top;
-        const boundaryBottom = contentRect.bottom;
-        const boundaryLeft = contentRect.left;
-        const boundaryRight = contentRect.right;
+        const boundaryTop = contentRect.top - 50;
+        const boundaryBottom = contentRect.bottom + 50;
+        const boundaryLeft = contentRect.left - 50;
+        const boundaryRight = contentRect.right + 50;
 
-        const nodes = [];
-        const edges = [];
-        const numNodes = 20;
+        const nodes1 = [];
+        const edges1 = [];
+        const nodes2 = [];
+        const edges2 = [];
+        const numNodes = 15;
         const nodeRadius = 5;
-        const edgeLength = 100;
+        const edgeLength = 80;
 
-        // Initialize nodes
+        // Initialize nodes for graph 1
         for (let i = 0; i < numNodes; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const radius = Math.random() * (Math.min(canvas.width, canvas.height) / 2 - edgeLength);
+            const radius = Math.random() * (Math.min(canvas1.width, canvas1.height) / 2 - edgeLength);
             const node = {
-                x: Math.cos(angle) * radius + canvas.width / 2,
-                y: Math.sin(angle) * radius + canvas.height / 2,
+                x: Math.cos(angle) * radius + canvas1.width / 2,
+                y: Math.sin(angle) * radius + canvas1.height / 2,
                 vx: Math.random() - 0.5,
                 vy: Math.random() - 0.5
             };
-            nodes.push(node);
+            nodes1.push(node);
         }
 
-        // Initialize edges
+        // Initialize edges for graph 1
         for (let i = 0; i < numNodes; i++) {
             const targetIndex = Math.floor(Math.random() * numNodes);
             if (i !== targetIndex) {
-                edges.push({ source: i, target: targetIndex });
+                edges1.push({ source: i, target: targetIndex });
             }
         }
 
-        function drawGraph() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Initialize nodes for graph 2
+        for (let i = 0; i < numNodes; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = Math.random() * (Math.min(canvas2.width, canvas2.height) / 2 - edgeLength);
+            const node = {
+                x: Math.cos(angle) * radius + canvas2.width / 2,
+                y: Math.sin(angle) * radius + canvas2.height / 2,
+                vx: Math.random() - 0.5,
+                vy: Math.random() - 0.5
+            };
+            nodes2.push(node);
+        }
+
+        // Initialize edges for graph 2
+        for (let i = 0; i < numNodes; i++) {
+            const targetIndex = Math.floor(Math.random() * numNodes);
+            if (i !== targetIndex) {
+                edges2.push({ source: i, target: targetIndex });
+            }
+        }
+
+        function drawGraph(ctx, nodes, edges) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
             // Draw edges
             ctx.strokeStyle = 'rgba(0, 123, 255, 0.3)';
@@ -142,10 +174,10 @@
                 node.y += node.vy;
 
                 // Bounce off the edges
-                if (node.x < nodeRadius || node.x > canvas.width - nodeRadius) {
+                if (node.x < nodeRadius || node.x > ctx.canvas.width - nodeRadius) {
                     node.vx *= -1;
                 }
-                if (node.y < nodeRadius || node.y > canvas.height - nodeRadius) {
+                if (node.y < nodeRadius || node.y > ctx.canvas.height - nodeRadius) {
                     node.vy *= -1;
                 }
 
@@ -160,11 +192,15 @@
                     }
                 }
             });
-
-            requestAnimationFrame(drawGraph);
         }
 
-        drawGraph();
+        function animate() {
+            drawGraph(ctx1, nodes1, edges1);
+            drawGraph(ctx2, nodes2, edges2);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 </body>
 </html>
