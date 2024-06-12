@@ -112,7 +112,7 @@
 
         /* Canvas for p5.js */
         #p5Canvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             z-index: 1;
@@ -141,26 +141,82 @@
     </div>
     <div id="p5Canvas"></div>
     <script>
+        let nodes = [];
+        let edges = [];
+        const numNodes = 20;
+        const maxEdges = 3;
+
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
             canvas.parent('p5Canvas');
             noFill();
-            stroke(255, 50);
+            stroke(255, 150);
+
+            // Initialize nodes
+            for (let i = 0; i < numNodes; i++) {
+                nodes.push(new Node(random(width), random(height)));
+            }
+
+            // Initialize edges
+            for (let i = 0; i < numNodes; i++) {
+                let node = nodes[i];
+                for (let j = 0; j < maxEdges; j++) {
+                    let target = nodes[int(random(numNodes))];
+                    if (target !== node) {
+                        edges.push(new Edge(node, target));
+                    }
+                }
+            }
         }
 
         function draw() {
-            background(0, 0, 255, 10);
-            let time = millis() / 1000;
-            for (let i = 0; i < 10; i++) {
-                let x = width * noise(time + i);
-                let y = height * noise(time + i + 10);
-                let r = 100 * noise(time + i + 20);
-                ellipse(x, y, r, r);
+            background(0, 20, 40, 10);
+            for (let edge of edges) {
+                edge.display();
+            }
+            for (let node of nodes) {
+                node.update();
+                node.display();
             }
         }
 
         function windowResized() {
             resizeCanvas(windowWidth, windowHeight);
+        }
+
+        class Node {
+            constructor(x, y) {
+                this.pos = createVector(x, y);
+                this.vel = createVector(random(-1, 1), random(-1, 1));
+                this.acc = createVector();
+                this.r = 5;
+            }
+
+            update() {
+                this.pos.add(this.vel);
+                this.edges = 0;
+
+                if (this.pos.x > width || this.pos.x < 0) this.vel.x *= -1;
+                if (this.pos.y > height || this.pos.y < 0) this.vel.y *= -1;
+            }
+
+            display() {
+                fill(255);
+                noStroke();
+                ellipse(this.pos.x, this.pos.y, this.r * 2);
+            }
+        }
+
+        class Edge {
+            constructor(nodeA, nodeB) {
+                this.nodeA = nodeA;
+                this.nodeB = nodeB;
+            }
+
+            display() {
+                stroke(255, 100);
+                line(this.nodeA.pos.x, this.nodeA.pos.y, this.nodeB.pos.x, this.nodeB.pos.y);
+            }
         }
     </script>
 </body>
