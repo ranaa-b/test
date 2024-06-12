@@ -11,9 +11,8 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
             color: #333;
-            overflow: hidden;
         }
 
         /* Container */
@@ -21,8 +20,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 2;
+            text-align: center;
         }
 
         /* Header */
@@ -30,9 +28,8 @@
             background: linear-gradient(135deg, #6b73ff, #000dff);
             color: #fff;
             padding: 20px 0;
-            text-align: center;
             border-radius: 8px;
-            position: relative;
+            margin-bottom: 20px;
         }
 
         header h1 {
@@ -41,20 +38,16 @@
         }
 
         header img {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            width: 100px;
+            width: 50px;
+            margin-top: 10px;
         }
 
         /* Main Content */
         .content {
             background: #fff;
             padding: 30px;
-            margin-top: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
         }
 
         .content p {
@@ -71,7 +64,7 @@
         .download-btn {
             display: inline-block;
             padding: 15px 30px;
-            margin: 10px;
+            margin: 10px 5px;
             background: #007BFF;
             color: #fff;
             text-decoration: none;
@@ -106,27 +99,17 @@
             }
 
             header img {
-                width: 80px;
+                width: 40px;
             }
-        }
-
-        /* Canvas for p5.js */
-        #p5Canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            pointer-events: none;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Visual Graph Arena</h1>
-            <img src="https://via.placeholder.com/100" alt="Graph Icon">
+            <img src="https://via.placeholder.com/50" alt="Graph Icon">
         </header>
         <div class="content">
             <p>Welcome to the Visual Graph Arena dataset page. This dataset contains a variety of graph-based visual data for deep learning research and applications.</p>
@@ -139,93 +122,5 @@
             &copy; 2024 Visual Graph Arena. All rights reserved.
         </footer>
     </div>
-    <div id="p5Canvas"></div>
-    <script>
-        let nodes = [];
-        let edges = [];
-        const numNodes = 30;
-        const maxEdges = 4;
-
-        function setup() {
-            let canvas = createCanvas(windowWidth, windowHeight);
-            canvas.parent('p5Canvas');
-            noFill();
-
-            // Initialize nodes
-            for (let i = 0; i < numNodes; i++) {
-                nodes.push(new Node(random(width), random(height)));
-            }
-
-            // Initialize edges with edge count tracking
-            for (let i = 0; i < numNodes; i++) {
-                let edgeCount = 0;
-                while (edgeCount < maxEdges) {
-                    let targetIndex = int(random(numNodes));
-                    if (targetIndex !== i && !nodes[i].isConnected(nodes[targetIndex])) {
-                        edges.push(new Edge(nodes[i], nodes[targetIndex]));
-                        nodes[i].connect(nodes[targetIndex]);
-                        nodes[targetIndex].connect(nodes[i]);
-                        edgeCount++;
-                    }
-                }
-            }
-        }
-
-        function draw() {
-            background(0, 20, 40, 100);
-            for (let edge of edges) {
-                edge.display();
-            }
-            for (let node of nodes) {
-                node.update();
-                node.display();
-            }
-        }
-
-        function windowResized() {
-            resizeCanvas(windowWidth, windowHeight);
-        }
-
-        class Node {
-            constructor(x, y) {
-                this.pos = createVector(x, y);
-                this.vel = createVector(random(-1, 1), random(-1, 1));
-                this.connections = [];
-                this.r = 5;
-            }
-
-            update() {
-                this.pos.add(this.vel);
-                if (this.pos.x > width || this.pos.x < 0) this.vel.x *= -1;
-                if (this.pos.y > height || this.pos.y < 0) this.vel.y *= -1;
-            }
-
-            display() {
-                fill(255);
-                noStroke();
-                ellipse(this.pos.x, this.pos.y, this.r * 2);
-            }
-
-            connect(node) {
-                this.connections.push(node);
-            }
-
-            isConnected(node) {
-                return this.connections.includes(node);
-            }
-        }
-
-        class Edge {
-            constructor(nodeA, nodeB) {
-                this.nodeA = nodeA;
-                this.nodeB = nodeB;
-            }
-
-            display() {
-                stroke(255, 150);
-                line(this.nodeA.pos.x, this.nodeA.pos.y, this.nodeB.pos.x, this.nodeB.pos.y);
-            }
-        }
-    </script>
 </body>
 </html>
