@@ -146,12 +146,12 @@
 
                 // Bounce off the text area
                 if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius - spaceMargin){
-                    node.vx *= -2;
+                    node.vx *= -1;
                     node.vy *= -1;
                 }
                 if (node.y < boundaryTop + nodeRadius + spaceMargin || node.y > boundaryBottom - nodeRadius - spaceMargin) {
                     node.vx *= -1;
-                    node.vy *= -2;
+                    node.vy *= -1;
                 }
             });
 
