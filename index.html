@@ -33,59 +33,21 @@
         .download-button:hover {
             background-color: #0056b3;
         }
-        .graph-container {
+        canvas {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             z-index: -1;
-        }
-        .graph-node {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #007bff;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: floatingNode 5s infinite;
-        }
-        .graph-edge {
-            position: absolute;
-            width: 2px;
-            height: 100px;
-            background-color: #007bff;
-            transform-origin: top;
-            opacity: 0.5;
-        }
-        @keyframes floatingNode {
-            0% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(50px, 100px);
-            }
-            100% {
-                transform: translate(0, 0);
-            }
         }
     </style>
 </head>
 <body>
-    <div class="graph-container">
-        <div class="graph-node" style="top: 20%; left: 10%;"></div>
-        <div class="graph-node" style="top: 30%; left: 60%;"></div>
-        <div class="graph-node" style="top: 70%; left: 30%;"></div>
-        <div class="graph-node" style="top: 50%; left: 80%;"></div>
-        <div class="graph-edge" style="top: 25%; left: 10%; transform: rotate(45deg);"></div>
-        <div class="graph-edge" style="top: 40%; left: 60%; transform: rotate(-60deg);"></div>
-        <div class="graph-edge" style="top: 60%; left: 30%; transform: rotate(30deg);"></div>
-    </div>
-    
+    <canvas id="graphCanvas"></canvas>
+
     <h1>Visual Graph Arena Dataset</h1>
     <p>Welcome to the Visual Graph Arena dataset page! This dataset is designed for deep learning research in the field of graph theory.</p>
     <p>The dataset contains a collection of graph data and associated visual representations suitable for various graph-related tasks such as graph classification, graph generation, and graph embedding.</p>
-    
+
     <h2>Dataset Details</h2>
     <ul>
         <li>Number of graphs: [Insert number of graphs]</li>
@@ -93,18 +55,92 @@
         <li>Application domains: [Insert application domains, e.g., social networks, biological networks]</li>
         <li>File format: [Insert file format, e.g., GraphML, JSON]</li>
     </ul>
-    
+
     <h2>Download</h2>
     <p>To download the Visual Graph Arena dataset, click the button below:</p>
     <a href="[Insert download link]" class="download-button">Download Dataset</a>
-    
+
     <h2>Citation</h2>
     <p>If you use this dataset in your research, please cite the following paper:</p>
     <pre>
 [Insert citation information]
     </pre>
-    
+
     <h2>Contact</h2>
     <p>If you have any questions or feedback regarding the Visual Graph Arena dataset, please contact us at [Insert contact email].</p>
+
+    <script>
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const nodes = [];
+        const edges = [];
+        const numNodes = 20;
+        const nodeRadius = 5;
+        const edgeLength = 100;
+
+        // Initialize nodes
+        for (let i = 0; i < numNodes; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = Math.random() * (Math.min(canvas.width, canvas.height) / 2 - edgeLength);
+            const node = {
+                x: Math.cos(angle) * radius + canvas.width / 2,
+                y: Math.sin(angle) * radius + canvas.height / 2,
+                vx: Math.random() - 0.5,
+                vy: Math.random() - 0.5
+            };
+            nodes.push(node);
+        }
+
+        // Initialize edges
+        for (let i = 0; i < numNodes; i++) {
+            const targetIndex = Math.floor(Math.random() * numNodes);
+            if (i !== targetIndex) {
+                edges.push({ source: i, target: targetIndex });
+            }
+        }
+
+        function drawGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw edges
+            ctx.strokeStyle = 'rgba(0, 123, 255, 0.3)';
+            ctx.lineWidth = 1;
+            edges.forEach(edge => {
+                const sourceNode = nodes[edge.source];
+                const targetNode = nodes[edge.target];
+                ctx.beginPath();
+                ctx.moveTo(sourceNode.x, sourceNode.y);
+                ctx.lineTo(targetNode.x, targetNode.y);
+                ctx.stroke();
+            });
+
+            // Draw nodes
+            ctx.fillStyle = 'rgba(0, 123, 255, 0.7)';
+            nodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Update node position
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Bounce off the edges
+                if (node.x < nodeRadius || node.x > canvas.width - nodeRadius) {
+                    node.vx *= -1;
+                }
+                if (node.y < nodeRadius || node.y > canvas.height - nodeRadius) {
+                    node.vy *= -1;
+                }
+            });
+
+            requestAnimationFrame(drawGraph);
+        }
+
+        drawGraph();
+    </script>
 </body>
 </html>
