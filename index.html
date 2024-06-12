@@ -141,17 +141,23 @@
                 node.x += node.vx;
                 node.y += node.vy;
 
-                // Bounce off the edges and content boundary
+                // Bounce off the edges
                 if (node.x < nodeRadius || node.x > canvas.width - nodeRadius) {
                     node.vx *= -1;
                 }
                 if (node.y < nodeRadius || node.y > canvas.height - nodeRadius) {
                     node.vy *= -1;
                 }
+
+                // Bounce off the text area
                 if (node.x > boundaryLeft - nodeRadius && node.x < boundaryRight + nodeRadius &&
                     node.y > boundaryTop - nodeRadius && node.y < boundaryBottom + nodeRadius) {
-                    node.vx *= -1;
-                    node.vy *= -1;
+                    if (node.x < boundaryLeft + nodeRadius || node.x > boundaryRight - nodeRadius) {
+                        node.vx *= -1;
+                    }
+                    if (node.y < boundaryTop + nodeRadius || node.y > boundaryBottom - nodeRadius) {
+                        node.vy *= -1;
+                    }
                 }
             });
 
