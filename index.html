@@ -92,9 +92,10 @@
 
         const nodes = [];
         const edges = [];
-        const numNodes = 20;
+        const numNodes = 10;
         const nodeRadius = 5;
         const edgeLength = 100;
+        const spaceMargin = 100;
 
         // Initialize nodes
         for (let i = 0; i < numNodes; i++) {
@@ -152,14 +153,11 @@
                 }
 
                 // Bounce off the text area
-                if (node.x > boundaryLeft - nodeRadius && node.x < boundaryRight + nodeRadius &&
-                    node.y > boundaryTop - nodeRadius && node.y < boundaryBottom + nodeRadius) {
-                    if (node.x < boundaryLeft + nodeRadius || node.x > boundaryRight - nodeRadius) {
-                        node.vx *= -1;
-                    }
-                    if (node.y < boundaryTop + nodeRadius || node.y > boundaryBottom - nodeRadius) {
-                        node.vy *= -1;
-                    }
+                if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius + spaceMargin){
+                    node.vx *= -1;
+                }
+                if (node.y < boundaryTop + nodeRadius + spaceMargin || node.y > boundaryBottom - nodeRadius + spaceMargin) {
+                    node.vy *= -1;
                 }
             });
 
