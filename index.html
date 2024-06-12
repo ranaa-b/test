@@ -29,11 +29,19 @@
             padding: 20px 0;
             text-align: center;
             border-radius: 8px;
+            position: relative;
         }
 
         header h1 {
             margin: 0;
             font-size: 2.5em;
+        }
+
+        header img {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            width: 100px;
         }
 
         /* Main Content */
@@ -43,6 +51,7 @@
             margin-top: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         .content p {
@@ -50,11 +59,16 @@
             margin-bottom: 20px;
         }
 
-        /* Download Button */
+        .content img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
         .download-btn {
             display: inline-block;
             padding: 15px 30px;
-            margin: 10px 0;
+            margin: 10px;
             background: #007BFF;
             color: #fff;
             text-decoration: none;
@@ -64,6 +78,26 @@
 
         .download-btn:hover {
             background: #0056b3;
+        }
+
+        /* Shapes and Backgrounds */
+        .shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .shape1 {
+            top: 50px;
+            left: -100px;
+        }
+
+        .shape2 {
+            bottom: -50px;
+            right: -100px;
         }
 
         /* Footer */
@@ -87,6 +121,10 @@
             .download-btn {
                 padding: 12px 25px;
             }
+
+            header img {
+                width: 80px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -95,9 +133,12 @@
     <div class="container">
         <header>
             <h1>Visual Graph Arena</h1>
+            <img src="https://via.placeholder.com/100" alt="Graph Icon">
+            <div class="shape shape1"></div>
         </header>
         <div class="content">
             <p>Welcome to the Visual Graph Arena dataset page. This dataset contains a variety of graph-based visual data for deep learning research and applications.</p>
+            <img src="https://via.placeholder.com/800x400" alt="Graphs and Deep Learning">
             <p>You can download the dataset using the links below:</p>
             <a href="link_to_your_dataset.zip" class="download-btn">Download Dataset (ZIP)</a>
             <a href="link_to_your_dataset.tar.gz" class="download-btn">Download Dataset (TAR.GZ)</a>
@@ -105,6 +146,7 @@
         <footer>
             &copy; 2024 Visual Graph Arena. All rights reserved.
         </footer>
+        <div class="shape shape2"></div>
     </div>
 </body>
 </html>
