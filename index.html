@@ -13,6 +13,7 @@
             padding: 0;
             background-color: #f9f9f9;
             color: #333;
+            overflow: hidden;
         }
 
         /* Container */
@@ -20,6 +21,8 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         /* Header */
@@ -80,26 +83,6 @@
             background: #0056b3;
         }
 
-        /* Shapes and Backgrounds */
-        .shape {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            z-index: -1;
-        }
-
-        .shape1 {
-            top: 50px;
-            left: -100px;
-        }
-
-        .shape2 {
-            bottom: -50px;
-            right: -100px;
-        }
-
         /* Footer */
         footer {
             text-align: center;
@@ -126,15 +109,24 @@
                 width: 80px;
             }
         }
+
+        /* Canvas for p5.js */
+        #p5Canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Visual Graph Arena</h1>
             <img src="https://via.placeholder.com/100" alt="Graph Icon">
-            <div class="shape shape1"></div>
         </header>
         <div class="content">
             <p>Welcome to the Visual Graph Arena dataset page. This dataset contains a variety of graph-based visual data for deep learning research and applications.</p>
@@ -146,7 +138,30 @@
         <footer>
             &copy; 2024 Visual Graph Arena. All rights reserved.
         </footer>
-        <div class="shape shape2"></div>
     </div>
+    <div id="p5Canvas"></div>
+    <script>
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('p5Canvas');
+            noFill();
+            stroke(255, 50);
+        }
+
+        function draw() {
+            background(0, 0, 255, 10);
+            let time = millis() / 1000;
+            for (let i = 0; i < 10; i++) {
+                let x = width * noise(time + i);
+                let y = height * noise(time + i + 10);
+                let r = 100 * noise(time + i + 20);
+                ellipse(x, y, r, r);
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
 </body>
 </html>
