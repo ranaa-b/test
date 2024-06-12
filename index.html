@@ -39,41 +39,54 @@
             left: 0;
             z-index: -1;
         }
+        .content {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
     <canvas id="graphCanvas"></canvas>
 
-    <h1>Visual Graph Arena Dataset</h1>
-    <p>Welcome to the Visual Graph Arena dataset page! This dataset is designed for deep learning research in the field of graph theory.</p>
-    <p>The dataset contains a collection of graph data and associated visual representations suitable for various graph-related tasks such as graph classification, graph generation, and graph embedding.</p>
+    <div class="content">
+        <h1>Visual Graph Arena Dataset</h1>
+        <p>Welcome to the Visual Graph Arena dataset page! This dataset is designed for deep learning research in the field of graph theory.</p>
+        <p>The dataset contains a collection of graph data and associated visual representations suitable for various graph-related tasks such as graph classification, graph generation, and graph embedding.</p>
 
-    <h2>Dataset Details</h2>
-    <ul>
-        <li>Number of graphs: [Insert number of graphs]</li>
-        <li>Graph types: [Insert graph types, e.g., directed, undirected, weighted]</li>
-        <li>Application domains: [Insert application domains, e.g., social networks, biological networks]</li>
-        <li>File format: [Insert file format, e.g., GraphML, JSON]</li>
-    </ul>
+        <h2>Dataset Details</h2>
+        <ul>
+            <li>Number of graphs: [Insert number of graphs]</li>
+            <li>Graph types: [Insert graph types, e.g., directed, undirected, weighted]</li>
+            <li>Application domains: [Insert application domains, e.g., social networks, biological networks]</li>
+            <li>File format: [Insert file format, e.g., GraphML, JSON]</li>
+        </ul>
 
-    <h2>Download</h2>
-    <p>To download the Visual Graph Arena dataset, click the button below:</p>
-    <a href="[Insert download link]" class="download-button">Download Dataset</a>
+        <h2>Download</h2>
+        <p>To download the Visual Graph Arena dataset, click the button below:</p>
+        <a href="[Insert download link]" class="download-button">Download Dataset</a>
 
-    <h2>Citation</h2>
-    <p>If you use this dataset in your research, please cite the following paper:</p>
-    <pre>
+        <h2>Citation</h2>
+        <p>If you use this dataset in your research, please cite the following paper:</p>
+        <pre>
 [Insert citation information]
-    </pre>
+        </pre>
 
-    <h2>Contact</h2>
-    <p>If you have any questions or feedback regarding the Visual Graph Arena dataset, please contact us at [Insert contact email].</p>
+        <h2>Contact</h2>
+        <p>If you have any questions or feedback regarding the Visual Graph Arena dataset, please contact us at [Insert contact email].</p>
+    </div>
 
     <script>
         const canvas = document.getElementById('graphCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
+        const content = document.querySelector('.content');
+        const contentRect = content.getBoundingClientRect();
+        const boundaryTop = contentRect.top;
+        const boundaryBottom = contentRect.bottom;
+        const boundaryLeft = contentRect.left;
+        const boundaryRight = contentRect.right;
 
         const nodes = [];
         const edges = [];
@@ -128,11 +141,16 @@
                 node.x += node.vx;
                 node.y += node.vy;
 
-                // Bounce off the edges
+                // Bounce off the edges and content boundary
                 if (node.x < nodeRadius || node.x > canvas.width - nodeRadius) {
                     node.vx *= -1;
                 }
                 if (node.y < nodeRadius || node.y > canvas.height - nodeRadius) {
+                    node.vy *= -1;
+                }
+                if (node.x > boundaryLeft - nodeRadius && node.x < boundaryRight + nodeRadius &&
+                    node.y > boundaryTop - nodeRadius && node.y < boundaryBottom + nodeRadius) {
+                    node.vx *= -1;
                     node.vy *= -1;
                 }
             });
