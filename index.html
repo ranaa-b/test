@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... (head content remains the same) ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Graph Arena Dataset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-top: 50px;
+        }
+        .download-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 30px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .download-button:hover {
+            background-color: #0056b3;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            margin: 100px auto;
+            max-width: 600px;
+        }
+    </style>
 </head>
 <body>
     <canvas id="graphCanvas"></canvas>
 
     <div class="content">
-        <!-- ... (content remains the same) ... -->
+        <h1>Visual Graph Arena Dataset</h1>
+        <p>Welcome to the Visual Graph Arena dataset page! This dataset is designed for deep learning research in the field of graph theory.</p>
+        <p>The dataset contains a collection of graph data and associated visual representations suitable for various graph-related tasks such as graph classification, graph generation, and graph embedding.</p>
+
+        <h2>Dataset Details</h2>
+        <ul>
+            <li>Number of graphs: [Insert number of graphs]</li>
+            <li>Graph types: [Insert graph types, e.g., directed, undirected, weighted]</li>
+            <li>Application domains: [Insert application domains, e.g., social networks, biological networks]</li>
+            <li>File format: [Insert file format, e.g., GraphML, JSON]</li>
+        </ul>
+
+        <h2>Download</h2>
+        <p>To download the Visual Graph Arena dataset, click the button below:</p>
+        <a href="[Insert download link]" class="download-button">Download Dataset</a>
+
+        <h2>Citation</h2>
+        <p>If you use this dataset in your research, please cite the following paper:</p>
+        <pre>
+[Insert citation information]
+        </pre>
+
+        <h2>Contact</h2>
+        <p>If you have any questions or feedback regarding the Visual Graph Arena dataset, please contact us at [Insert contact email].</p>
     </div>
 
     <script>
@@ -29,9 +96,6 @@
         const nodeRadius = 5;
         const edgeLength = 100;
         const spaceMargin = 30;
-
-        let mouseX = 0;
-        let mouseY = 0;
 
         // Initialize nodes
         for (let i = 0; i < numNodes; i++) {
@@ -76,41 +140,23 @@
                 ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Calculate distance between node and cursor
-                const dx = node.x - mouseX;
-                const dy = node.y - mouseY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                // Push the node away from the cursor if it's within a certain range
-                const pushRange = 50;
-                if (distance < pushRange) {
-                    const angle = Math.atan2(dy, dx);
-                    const force = (pushRange - distance) / pushRange;
-                    node.vx += Math.cos(angle) * force;
-                    node.vy += Math.sin(angle) * force;
-                }
-
                 // Update node position
                 node.x += node.vx;
                 node.y += node.vy;
 
                 // Bounce off the text area
-                if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius - spaceMargin) {
+                if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius - spaceMargin){
                     node.vx *= -1;
+                    node.vy *= -1;
                 }
                 if (node.y < boundaryTop + nodeRadius + spaceMargin || node.y > boundaryBottom - nodeRadius - spaceMargin) {
+                    node.vx *= -1;
                     node.vy *= -1;
                 }
             });
 
             requestAnimationFrame(drawGraph);
         }
-
-        // Update mouse position
-        canvas.addEventListener('mousemove', e => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
 
         drawGraph();
     </script>
