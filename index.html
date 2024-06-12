@@ -97,6 +97,19 @@
         const edgeLength = 100;
         const spaceMargin = 30;
 
+        let mousePos = { x: canvas.width / 2, y: canvas.height / 2 };
+
+        canvas.addEventListener('mousemove', (event) => {
+            mousePos = {
+                x: event.clientX,
+                y: event.clientY
+            };
+        });
+
+        function distance(x1, y1, x2, y2) {
+            return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+        }
+
         // Initialize nodes
         for (let i = 0; i < numNodes; i++) {
             const angle = Math.random() * Math.PI * 2;
@@ -144,6 +157,14 @@
                 node.x += node.vx;
                 node.y += node.vy;
 
+                // Push node away if near mouse cursor
+                const dist = distance(node.x, node.y, mousePos.x, mousePos.y);
+                if (dist < 50) {
+                    const angle = Math.atan2(node.y - mousePos.y, node.x - mousePos.x);
+                    node.vx += Math.cos(angle) * 0.5;
+                    node.vy += Math.sin(angle) * 0.5;
+                }
+
                 // Bounce off the text area
                 if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius - spaceMargin){
                     node.vx *= -1;
@@ -151,6 +172,24 @@
                 }
                 if (node.y < boundaryTop + nodeRadius + spaceMargin || node.y > boundaryBottom - nodeRadius - spaceMargin) {
                     node.vx *= -1;
+                    node.vy *= -1;
+                }
+
+                // Ensure nodes stay within canvas bounds
+                if (node.x < nodeRadius) {
+                    node.x = nodeRadius;
+                    node.vx *= -1;
+                }
+                if (node.x > canvas.width - nodeRadius) {
+                    node.x = canvas.width - nodeRadius;
+                    node.vx *= -1;
+                }
+                if (node.y < nodeRadius) {
+                    node.y = nodeRadius;
+                    node.vy *= -1;
+                }
+                if (node.y > canvas.height - nodeRadius) {
+                    node.y = canvas.height - nodeRadius;
                     node.vy *= -1;
                 }
             });
