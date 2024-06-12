@@ -16,7 +16,7 @@ const numNodes = 15;
 const nodeRadius = 5;
 const edgeLength = 100;
 const spaceMargin = 30;
-const repulsionForce = 0.1;
+const repulsionForce = 0.5;
 const repulsionDistance = 50;
 
 // Initialize nodes
@@ -62,18 +62,6 @@ function drawGraph() {
         ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Update node position
-        node.x += node.vx;
-        node.y += node.vy;
-
-        // Bounce off the text area
-        if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius - spaceMargin) {
-            node.vx *= -1;
-        }
-        if (node.y < boundaryTop + nodeRadius + spaceMargin || node.y > boundaryBottom - nodeRadius - spaceMargin) {
-            node.vy *= -1;
-        }
-
         // Repel nodes from the cursor
         const dx = node.x - mouseX;
         const dy = node.y - mouseY;
@@ -82,9 +70,13 @@ function drawGraph() {
             const angle = Math.atan2(dy, dx);
             const repulsionX = Math.cos(angle) * repulsionForce;
             const repulsionY = Math.sin(angle) * repulsionForce;
-            node.vx += repulsionX;
-            node.vy += repulsionY;
+            node.x += repulsionX;
+            node.y += repulsionY;
         }
+
+        // Keep nodes within the boundaries
+        node.x = Math.max(boundaryLeft + nodeRadius + spaceMargin, Math.min(boundaryRight - nodeRadius - spaceMargin, node.x));
+        node.y = Math.max(boundaryTop + nodeRadius + spaceMargin, Math.min(boundaryBottom - nodeRadius - spaceMargin, node.y));
     });
 
     requestAnimationFrame(drawGraph);
