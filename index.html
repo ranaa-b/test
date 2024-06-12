@@ -144,14 +144,6 @@
                 node.x += node.vx;
                 node.y += node.vy;
 
-                // Bounce off the edges
-                if (node.x < nodeRadius || node.x > canvas.width - nodeRadius) {
-                    node.vx *= -1;
-                }
-                if (node.y < nodeRadius || node.y > canvas.height - nodeRadius) {
-                    node.vy *= -1;
-                }
-
                 // Bounce off the text area
                 if (node.x < boundaryLeft + nodeRadius + spaceMargin || node.x > boundaryRight - nodeRadius + spaceMargin){
                     node.vx *= -1;
