@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
             display: flex;
-            height: 100vh;
             background-color: #f8f9fa;
         }
         .content-container {
@@ -27,7 +26,7 @@
         }
         .graph-container {
             width: 34%; /* One-third for graph */
-            height: 80%;
+            height: 90vh;
             position: relative;
         }
         canvas {
@@ -46,40 +45,80 @@
             text-decoration: none;
             border-radius: 4px;
             font-size: 18px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.5s ease;
         }
         .download-button:hover {
             background-color: #0056b3;
         }
+        
+
     </style>
 </head>
 <body>
     <div class="content-container">
         <div class="content">
             <h1>Visual Graph Arena Dataset</h1>
-            <p>Welcome to the Visual Graph Arena dataset page! This dataset is designed for deep learning research in the field of graph theory.</p>
-            <p>The dataset contains a collection of graph data and associated visual representations suitable for various graph-related tasks such as graph classification, graph generation, and graph embedding.</p>
+            <p>Welcome to the Visual Graph Arena dataset page!</p>
+            <p> The Visual Graph Arena Benchmark is a collection of six datasets designed to evaluate and enhance the visual reasoning capabilities of AI.
+            The datasets are structured around three primary concepts, each divided into two tasks:</p>
 
+              <ol>
+                  <li><strong>Graph Isomorphism Tasks:</strong>
+                      <ul>
+                          <li><em>Easy Isomorphism:</em> Determining whether two given graphs are isomorphic, with non-isomorphic graphs chosen randomly.</li>
+                          <li><em>Hard Isomorphism:</em> Determining whether two given graphs are isomorphic, with non-isomorphic graphs being degree-equivalent.</li>
+                      </ul>
+                  </li>
+                  <li><strong>Graph Path Finding Tasks:</strong>
+                      <ul>
+                          <li><em>Hamiltonian Path:</em> Determining whether a given graph contains a Hamiltonian path.</li>
+                          <li><em>Shortest Path:</em> Finding the shortest path length between two marked nodes in a graph.</li>
+                      </ul>
+                  </li>
+                  <li><strong>Graph Cycle Finding Tasks:</strong>
+                      <ul>
+                          <li><em>Hamiltonian Cycle:</em> Determining whether a given graph contains a Hamiltonian cycle.</li>
+                          <li><em>Biggest Chordless Cycle:</em> Finding the size of the largest chordless cycle in a graph.</li>
+                      </ul>
+                  </li>
+              </ol>
+
+       
             <h2>Dataset Details</h2>
+            <p>The graphs in the datasets consist of 8-9 nodes. The training and test sets for each task use different graph layouts to assess the models' ability to generalize across visual representations. </p>
+              
             <ul>
-                <li>Number of graphs: [Insert number of graphs]</li>
-                <li>Graph types: [Insert graph types, e.g., directed, undirected, weighted]</li>
-                <li>Application domains: [Insert application domains, e.g., social networks, biological networks]</li>
-                <li>File format: [Insert file format, e.g., GraphML, JSON]</li>
+                <li>Number of graphs: more than 600K in total</li>
+                <li>File formats: '.png' and '.txt'</li>
             </ul>
+
+            <p>The directory structure of the Visual Graph Arena (VGA) dataset can be accessed <a href="/directory.pdf">here</a>.</p>
+            <p>Each 'image_{i}.png' in the input directories corresponds to the i-th row of its associated 'label.txt' file.</p>
 
             <h2>Download</h2>
             <p>To download the Visual Graph Arena dataset, click the button below:</p>
-            <a href="[Insert download link]" class="download-button">Download Dataset</a>
+            <a href="/visual_graph_arena.zip" class="download-button">visual_graph_arena.zip</a>
 
             <h2>Citation</h2>
             <p>If you use this dataset in your research, please cite the following paper:</p>
-            <pre>
-[Insert citation information]
-            </pre>
+    <pre style="white-space: pre-wrap; background-color:#ebf1f2">
+    
+@inproceedings{babaiee2024graph,
+  title={Graph Arena: A Benchmark for Visual Reasoning},
+  author={Babaiee, Zahra and Kiasari, Peyman M. and Rus, Daniela and Grosu, Radu},
+  booktitle={Proceedings of the 38th Conference on Neural Information Processing Systems (NeurIPS 2024), Track on Datasets and Benchmarks},
+  year={2024},
+  address={Vienna, Austria},
+  organization={Neural Information Processing Systems Foundation},
+  url={http://neurips.cc/},
+  note={Submitted paper, do not distribute}
+  }
+  
+</pre>
+
 
             <h2>Contact</h2>
-            <p>If you have any questions or feedback regarding the Visual Graph Arena dataset, please contact us at [Insert contact email].</p>
+            <p>If you have any questions or feedback regarding the Visual Graph Arena dataset, please contact us at zahra{at}csail{dot}mit{dot}edu.</p>
         </div>
     </div>
     <div class="graph-container">
