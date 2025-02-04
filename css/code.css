@@ -1,0 +1,59 @@
+.code-container {
+    font-size: 12px;
+    position: relative;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+pre[class*="language-"] {
+    margin: 0;
+    padding: 1em 1em 1em 3.8em;
+    background: #1E1E1E !important;
+}
+code[class*="language-"] {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    line-height: 1.5;
+}
+.line-numbers .line-numbers-rows {
+    border-right: 1px solid #404040;
+    left: -3.8em;
+    width: 2.8em;
+}
+.copy-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px 10px;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease;
+}
+.copy-button:hover {
+    background-color: #3A7BC8;
+}
+.language-label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 0.8em;
+    color: #CCC;
+    background-color: #2A2A2A;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+lcode {
+    background-color: #f4f4f4;
+    border: 1px solid #e0e0e0;
+    border-radius: 1px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.8em;
+    padding: 2px 4px;
+    color: #ec0044;
+}

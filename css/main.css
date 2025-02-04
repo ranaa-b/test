@@ -1,0 +1,289 @@
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f8f9fa;
+}
+
+a {
+    color: #288dc0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover, a:focus {
+    color: #00698e; /* A slightly darker shade for hover/focus states */
+    text-decoration: underline;
+}
+
+.page {
+    display: none;
+}
+
+#home {
+    display: block; /* Show home page by default */
+}
+
+.content-container {
+    width: 66%;
+    /* Two-thirds for content */
+    display: flex;
+    align-items: center;
+    /* Center content vertically */
+    justify-content: center;
+    /* Center content horizontally */
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.content {
+    max-width: 750px;
+    /* Standard max width */
+}
+
+.graph-container {
+    width: 34%;
+    /* One-third for graph */
+    height: 100vh;
+    justify-content: center;
+    position: fixed; /* Change from 'relative' to 'fixed' */
+    right: 0;
+    top: 0;
+
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    justify-content: center;
+}
+
+h1, h2, h3 {
+    color: #A31F34;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.8em;
+    letter-spacing: 1px;
+}
+
+.download-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #A31F34;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 18px;
+    transition: background-color 0.5s ease;
+}
+
+.download-button:hover {
+    background-color: #8B1A2E;
+}
+
+.rectangle {
+    background: rgba(255, 175, 189, 0.5); /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgba(255, 195, 160, 0.5), rgba(255, 175, 189, 0.5)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, rgba(255, 195, 160, 0.5), rgba(255, 175, 189, 0.5)), /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ url(data:image/png;base64,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);
+
+    /* Light gray color */
+    width: 100%;
+    /* As wide as its container */
+    height: 100px;
+    /* Set the height of the rectangle */
+    display: flex;
+    justify-content: space-around;
+    /* Aligns children with space between them */
+    align-items: center;
+    /* Vertically centers children */
+    border-radius: 20px;
+    /* Rounded corners */
+    padding: 0 10px;
+    /* Padding on sides */
+}
+
+.rectangle img {
+    width: 120px;
+    /* Width of the square picture */
+    height: 120px;
+    /* Height of the square picture, making it not exactly square */
+    box-shadow: 0 4px 10px 3px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.download-text {
+    font-size: 22px;
+    /* Font size for the text */
+    display: flex;
+    /* Aligns the icon and text */
+    align-items: center;
+    /* Centers them vertically */
+    font-weight: bold;
+    color: #A31F34;
+}
+
+.download-text::before {
+    content: "←";
+    /* Unicode for down arrow */
+    margin-right: 5px;
+    /* Space between the arrow and text */
+    font-size: 40px;
+    font-weight: 900;
+    /* Size of the arrow */
+}
+
+.dedication {
+    margin-top: 40px;
+    font-size: 11px;
+    font-style: italic;
+    color: #A9A9A9;
+}
+
+/********** Navbar styling **************/
+/* Reset and base styles */
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* Navbar container */
+.navbar {
+    /*background-color: #f8f9fa;*/
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'Roboto', Arial, 'Garamond', 'Baskerville', 'Times New Roman', serif;
+    padding: 10px 0;
+    transition: box-shadow 0.3s ease;
+}
+
+
+/* Navbar menu */
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navbar links */
+.nav-menu li a {
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.7px;
+    position: relative;
+}
+
+/* Hover and focus effect */
+.nav-menu li a:hover, .nav-menu li a:focus {
+    color: #A31F34;
+}
+
+.nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #A31F34;
+    transition: all 0.6s ease;
+}
+
+.nav-menu li a:hover::after, .nav-menu li a:focus::after, .nav-menu li a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Active link style */
+.nav-menu li a.active {
+    font-weight: 600;
+    color: #A31F34;
+}
+
+/* Custom scrollbar for webkit browsers */
+.navbar::-webkit-scrollbar {
+    height: 4px;
+}
+
+.navbar::-webkit-scrollbar-thumb {
+    background-color: #A31F34;
+}
+
+.navbar::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 600px) {
+    .content-container {
+        width: 100%;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .graph-container {
+        width: 100%;
+        /* One-third for graph */
+        height: 90vh;
+        position: absolute;
+        opacity: 0.5;
+        filter: blur(1px);
+        z-index: -1;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+    }
+
+    .nav-menu li a {
+        padding: 10px 15px;
+    }
+}
+
+
+/* Styles for the outer ordered list */
+ol {
+    counter-reset: item;
+    padding-left: 20px;
+}
+
+ol > li {
+    display: block;
+    margin-bottom: 10px;
+}
+
+ol > li:before {
+    content: counter(item) ". ";
+    counter-increment: item;
+    font-weight: bold;
+    color: #A31F34;
+}
+
+/* Styles for the inner unordered list */
+ol > li > ul {
+    margin-top: 5px;
+    padding-left: 40px;
+}
+
+ol > li > ul > li {
+    list-style-type: disc;
+    margin-bottom: 5px;
+}
+
+/* Ensure em elements within list items are properly styled */
+li em {
+    font-style: italic;
+    font-weight: bold;
+    color: #333;
+}

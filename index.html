@@ -1,1 +1,104 @@
-cat
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria" rel="stylesheet">
+    <title>Visual Graph Arena Dataset</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="data/icon.png">
+</head>
+<body>
+<div class="content-container">
+    <div class="content">
+        <h1 style="font-family: 'Alexandria','Arial',serif">Visual Graph Arena Dataset</h1>
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li><a href="index.html" id="home-link">Home</a></li>
+                <li><a href="dataset.html" id="dataset-link">Dataset</a></li>
+                <li><a href="tasks.html" id="tasks-link">Tasks</a></li>
+                <li><a href="code.html" id="code-link">Code</a></li>
+            </ul>
+        </nav>
+        <p>Welcome to the Visual Graph Arena dataset page!</p>
+        <p> The Visual Graph Arena Benchmark is a collection of six datasets designed to evaluate and enhance the
+            visual
+            reasoning capabilities of AI. The datasets are structured around three primary concepts, each divided
+            into
+            two tasks: (for more information visit <a href="tasks.html">Tasks</a>)</p>
+        <ol>
+            <li>
+                <strong>Graph Isomorphism Tasks:</strong>
+                <ul>
+                    <li>
+                        <em>Easy Isomorphism:</em> Determining whether two given graphs are isomorphic, with
+                        non-isomorphic graphs chosen randomly.
+                    </li>
+                    <li>
+                        <em>Hard Isomorphism:</em> Determining whether two given graphs are isomorphic, with
+                        non-isomorphic graphs being degree-equivalent.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <strong>Graph Path Finding Tasks:</strong>
+                <ul>
+                    <li>
+                        <em>Hamiltonian Path:</em> Determining whether a given graph contains a Hamiltonian path.
+                    </li>
+                    <li>
+                        <em>Shortest Path:</em> Finding the shortest path length between two marked nodes in a
+                        graph.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <strong>Graph Cycle Finding Tasks:</strong>
+                <ul>
+                    <li>
+                        <em>Hamiltonian Cycle:</em> Determining whether a given graph contains a Hamiltonian cycle.
+                    </li>
+                    <li>
+                        <em>Biggest Chordless Cycle:</em> Finding the size of the largest chordless cycle in a
+                        graph.
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <div class="rectangle">
+          <span style="color: #281c1c; text-align: left">
+            <span style="font-size: 144%; ">Research Paper</span>
+            <br>
+            <span style="font-size: smaller; ">Paper will be available for <br>download upon publication. </span>
+          </span>
+            <img src="/data/paper.png" alt="Square Image">
+            <span class="download-text">Download <br>Paper Here </span>
+        </div>
+        <h2>Download</h2>
+        <p>To download the Visual Graph Arena dataset, click the button below:</p>
+        <a href="/visual_graph_arena.zip" class="download-button">visual_graph_arena.zip</a>
+        <h2>Citation</h2>
+        <p>If you use this dataset in your research, please cite the following paper:</p>
+        <pre style="white-space: pre-wrap; background-color:#EFECEC">
+
+Citation will be available upon publication.
+
+</pre>
+        <h2>Contact</h2>
+        <p>If you have any questions or feedback regarding the Visual Graph Arena dataset, please contact us at
+            zahra{at}csail{dot}mit{dot}edu.</p>
+        <hr class="double">
+        <a href="https://doi.org/10.5281/zenodo.11636413">
+            <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.11636413.svg" alt="DOI">
+        </a>
+        <p class="dedication"> On the day I was creating this page, I received the bitter news of my grandmother's
+            passing, coming just a month after we lost her son, also my uncle, to cancer. With a deep sadness and
+            sorrow, I write this to their memories. Ziba and Ehsan. <br>- Peyman </p>
+    </div>
+</div>
+<div class="graph-container">
+    <canvas id="graphCanvas"></canvas>
+</div>
+</body>
+<script src="javascript/random_graph.js"></script>

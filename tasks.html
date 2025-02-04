@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria" rel="stylesheet">
+    <title>Visual Graph Arena Dataset</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/task_card.css">
+</head>
+<body>
+<div class="content-container">
+    <div class="content">
+        <h1 style="font-family: 'Alexandria','Arial',serif">Visual Graph Arena Dataset</h1>
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li><a href="index.html" id="home-link">Home</a></li>
+                <li><a href="dataset.html" id="dataset-link">Dataset</a></li>
+                <li><a href="tasks.html" id="tasks-link">Tasks</a></li>
+                <li><a href="code.html" id="code-link">Code</a></li>
+            </ul>
+        </nav>
+
+        <h2>Tasks</h2>
+        <p> The Visual Graph Arena Benchmark is a collection of six datasets designed to evaluate and enhance the visual
+            reasoning capabilities of AI. The datasets are structured around three primary concepts, each divided into
+            two tasks:</p>
+
+
+        <div class="task-card">
+            <h2>1. Graph Isomorphism Tasks</h2>
+            <div class="task-description">
+                These tasks challenge AI systems to identify structural equivalence between graphs, regardless of their
+                visual representation. (Labels: True/False)
+            </div>
+            <div class="task-content">
+                <h3>Easy Isomorphism</h3>
+                <p>Task: Determine whether two given graphs are isomorphic, with non-isomorphic graphs chosen randomly.
+                    This tests basic graph comparison skills.</p>
+                <button class="btn-toggle" onclick="toggleSample('easy-iso')">View Sample</button>
+                <div id="easy-iso" class="sample-data hidden">
+                    <div class="sample-image"><img src="data/samples/easy_f.png" alt="Sample Image: Easy Isomorphism"></div>
+                    <p class="sample-count">Label: False</p>
+                    <p class="sample-count">Training samples: 140,000 | Test samples: 15,718</p>
+                </div>
+
+                <h3>Hard Isomorphism</h3>
+                <p>Task: Determine whether two given graphs are isomorphic, with non-isomorphic graphs being
+                    degree-equivalent. This advanced version tests deeper structural analysis capabilities. (Labels: True/False)</p>
+                <button class="btn-toggle" onclick="toggleSample('hard-iso')">View Sample</button>
+                <div id="hard-iso" class="sample-data hidden">
+                    <div class="sample-image"><img src="data/samples/hard_t.png" alt="Sample Image: Hasy Isomorphism"></div>
+                    <p class="sample-count">Label: True</p>
+                    <p class="sample-count">Training samples: 127,374 | Test samples: 14,298</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-card">
+            <h2>2. Graph Path Finding Tasks</h2>
+            <div class="task-description">
+                These tasks evaluate an AI's ability to navigate graph structures, find optimal routes, and understand connectivity within networks.
+            </div>
+            <div class="task-content">
+                <h3>Hamiltonian Path</h3>
+                <p>Task: Determine whether a given graph contains a Hamiltonian path (a path that visits each vertex exactly once). This tests the AI's ability to explore all possible paths efficiently.</p>
+                <button class="btn-toggle" onclick="toggleSample('ham-path')">View Sample</button>
+                <div id="ham-path" class="sample-data hidden">
+                    <div class="sample-image"><img src="data/samples/hamiltonian_path_f.png" alt="Sample Image: Hamiltonian Path"></div>
+                    <p class="sample-count">Label: False</p>
+                    <p class="sample-count">Training samples: 25,000 | Test samples: 4,960 (2,480 Kawai, 2,480 Planar)</p>
+                </div>
+
+                <h3>Shortest Path</h3>
+                <p>Task: Find the shortest path length between two marked nodes in a graph. This evaluates the AI's ability to optimize routes in complex networks.</p>
+                <button class="btn-toggle" onclick="toggleSample('short-path')">View Sample</button>
+                <div id="short-path" class="sample-data hidden">
+                    <div class="sample-image"><img src="data/samples/shortest_path_3.png" alt="Sample Image: Shortest Path"></div>
+                    <p class="sample-count">Label: 3</p>
+                    <p class="sample-count">Training samples: 80,000 | Test samples: 26,016 (8,672 Random, 8,672 Kawai, 8,672 Planar)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-card">
+            <h2>3. Graph Cycle Finding Tasks</h2>
+            <div class="task-description">
+                These tasks focus on identifying specific cyclic structures within graphs. The ability to detect and analyze cycles in a graph.
+            </div>
+            <div class="task-content">
+                <h3>Hamiltonian Cycle</h3>
+                <p>Task: Determine whether a given graph contains a Hamiltonian cycle (a cycle that visits each vertex exactly once and returns to the start). This tests the AI's ability to find complex cyclic patterns.</p>
+                <button class="btn-toggle" onclick="toggleSample('ham-cycle')">View Sample</button>
+                <div id="ham-cycle" class="sample-data hidden">
+                    <div class="sample-image"><img src="data/samples/hamilton_cycle_t.png" alt="Sample Image: Hamiltonian Cycle"></div>
+                    <p class="sample-count">Label: True</p>
+                    <p class="sample-count">Training samples: 69,935 | Test samples: 15,480 (7,740 Kawai, 7,740 Planar)</p>
+                </div>
+
+                <h3>Biggest Chordless Cycle</h3>
+                <p>Task: Find the size of the largest chordless cycle (a cycle with no shortcuts) in a graph. This evaluates the AI's ability to identify specific substructures within complex graphs.</p>
+                <button class="btn-toggle" onclick="toggleSample('chord-cycle')">View Sample</button>
+                <div id="chord-cycle" class="sample-data hidden">
+                    <div class="sample-image"><img src="data/samples/chordless_4.png" alt="Sample Image: Biggest Chordless Cycle"></div>
+                    <p class="sample-count">Label: 4$</p>
+                    <p class="sample-count">Training samples: 80,000 | Test samples: 12,968 (6,484 Kawai, 6,484 Planar)</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="graph-container">
+    <canvas id="graphCanvas"></canvas>
+</div>
+</body>
+<script src="javascript/random_graph.js"></script>
+<script>
+    function toggleSample(id) {
+        const sample = document.getElementById(id);
+        sample.classList.toggle('hidden');
+
+        const button = sample.previousElementSibling;
+        button.textContent = sample.classList.contains('hidden') ? 'View Sample' : 'Hide Sample';
+    }
+</script>

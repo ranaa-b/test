@@ -1,0 +1,178 @@
+
+:root {
+    --primary-color: #A31F34;
+    --secondary-color: #8a8b8c;
+    --text-color: #333;
+    --bg-color: #f8f9fa;
+    --folder-color: #333333FF;
+    --file-color: #00698e;
+    --hover-color: #c9c8c7;
+    --border-color: #c9c8c7;
+    --line-color: #c9c8c7;
+}
+
+.directory {
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.directory h2 {
+    color: var(--secondary-color);
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.directory ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.directory li {
+    margin: 6px 0;
+    position: relative;
+}
+
+.directory li::before,
+.directory li::after {
+    content: '';
+    position: absolute;
+    left: -15px;
+}
+
+.directory li::before {
+    border-left: 1px solid var(--line-color);
+    height: 100%;
+    top: -8px;
+}
+
+.directory li:last-child::before {
+    height: 16px;
+}
+
+.directory li::after {
+    border-bottom: 1px solid var(--line-color);
+    width: 15px;
+    top: 16px;
+}
+
+.directory ul ul {
+    padding-left: 30px;
+}
+
+.directory span {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.directory span:hover {
+    background-color: var(--hover-color);
+}
+
+.folder, .file {
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.folder svg, .file svg {
+    margin-right: 10px;
+    min-width: 20px;
+    transition: all 0.3s ease;
+}
+
+.folder {
+    font-weight: 500;
+    color: var(--folder-color);
+}
+
+.file {
+    color: var(--file-color);
+}
+
+.expanded > span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.expanded > span svg {
+    stroke: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.directory li ul {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+}
+
+.directory li.expanded > ul {
+    max-height: 5000px;
+    transition: max-height 0.5s ease-in;
+}
+
+.item-count {
+    font-size: 0.8em;
+    color: var(--secondary-color);
+    margin-left: 5px;
+    opacity: 0.7;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.breadcrumb span {
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.breadcrumb span:hover {
+    color: var(--primary-color);
+}
+
+.breadcrumb span:not(:last-child)::after {
+    content: '>';
+    margin: 0 10px;
+    color: var(--border-color);
+}
